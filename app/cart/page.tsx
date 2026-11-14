@@ -1,14 +1,12 @@
-// Cart Page - SPA (interactive, no SEO needed)
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function CartPage() {
+function CartInner() {
   const [cart, setCart] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const addId = searchParams.get('add');
 
-  // Load cart from browser + add new product if ?add=2
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('spa_cart') || '[]');
     setCart(saved);
@@ -33,9 +31,7 @@ export default function CartPage() {
   };
 
   return (
-    <div style={{ background: '#fff', minHeight: '100vh', color: '#111' }}>
-    <main style={{ padding: 20, maxWidth: 800, margin: '0 auto', fontFamily: 'sans-serif' }}>
-      <a href="/">← Back to Home</a>
+    <>
       <h1 style={{ fontSize: 28, fontWeight: 800, marginTop: 15 }}>🛒 Your Cart ({cart.length})</h1>
       {cart.length === 0 ? <p>Your cart is empty. <a href="/">Browse products →</a></p> : (
         <>
@@ -46,11 +42,13 @@ export default function CartPage() {
             </div>
           ))}
           <h2 style={{ marginTop: 20 }}>Total: ₦{total.toLocaleString()}</h2>
-          <p style={{ color: '#666' }}>Platform fee (15%) included in vendor payout. You pay total only.</p>
           <a href="/checkout" style={{ background: '#111', color: '#fff', padding: '12px 20px', borderRadius: 8, textDecoration: 'none', display: 'inline-block', marginTop: 10 }}>Proceed to Checkout →</a>
         </>
       )}
-    </main>
-    </div>
+    </>
   );
 }
+
+export default function CartPage() {
+  return (
+    <div style={{ background: '#

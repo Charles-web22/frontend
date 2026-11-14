@@ -1,4 +1,5 @@
 // Cart Page - SPA (interactive, no SEO needed)
+
 'use client';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';

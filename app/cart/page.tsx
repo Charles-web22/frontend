@@ -1,9 +1,10 @@
 // Cart Page - SPA (interactive, no SEO needed)
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function CartPage() {
+// 1. Inner part - this one uses useSearchParams, so it MUST be inside Suspense
+function CartContent() {
   const [cart, setCart] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const addId = searchParams.get('add');
@@ -33,7 +34,6 @@ export default function CartPage() {
   };
 
   return (
-    <div style={{ background: '#fff', minHeight: '100vh', color: '#111' }}>
     <main style={{ padding: 20, maxWidth: 800, margin: '0 auto', fontFamily: 'sans-serif' }}>
       <a href="/">← Back to Home</a>
       <h1 style={{ fontSize: 28, fontWeight: 800, marginTop: 15 }}>🛒 Your Cart ({cart.length})</h1>
@@ -51,6 +51,16 @@ export default function CartPage() {
         </>
       )}
     </main>
+  );
+}
+
+// 2. Outer part - wraps inner part in Suspense - THIS IS THE FIX
+export default function CartPage() {
+  return (
+    <div style={{ background: '#fff', minHeight: '100vh', color: '#111' }}>
+      <Suspense fallback={<div style={{ padding: 20 }}>Loading cart...</div>}>
+        <CartContent />
+      </Suspense>
     </div>
   );
 }

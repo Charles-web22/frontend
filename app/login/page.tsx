@@ -13,7 +13,7 @@ export default function Login() {
   return (
     <main style={{ padding: 40, maxWidth: 400, margin: '0 auto', fontFamily: 'sans-serif', background: '#fff', minHeight: '100vh', color: '#111' }}>
       <h1>Login</h1>
-      <p style={{ color: '#666' }}>Demo Vendor: vendor@spanaija.com / vendor123</p>
+      <p style={{ color: '#666' }}>Demo Vendor: vendor@spanaija.com / vendor123<br />Demo Admin: admin@spanaija.com / admin123</p>
       <form onSubmit={login} style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20 }}>
         <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" style={{ padding: 12, borderRadius: 8, border: '1px solid #ddd' }} />
         <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" style={{ padding: 12, borderRadius: 8, border: '1px solid #ddd' }} />
